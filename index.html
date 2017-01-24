@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Type</title>
+	<script type="text/javascript" src="./js/jquery-2.1.4.js"></script>
+<script>
+	$(document).ready(function() {
+		var message = 'default message';
+
+		var submitMessage = function(message) {
+			message = $('#message').val();
+			$('#shownMessage').html(message);
+			hideForm();
+		};
+		var showForm = function() {
+			$('form').removeClass('hidden');
+			$('#display').addClass('hidden');
+		};
+		var hideForm = function() {
+			$('form').addClass('hidden');
+			$('#display').removeClass('hidden');
+		};
+
+
+		$('#showform').click(function() {
+			showForm();
+		});
+		$('#hideform').click(function() {
+			hideForm();
+		});
+		$('div#display').click(function() {
+			showForm();
+			$('#message').focus();
+		});
+		$('#message').blur(function() {
+			submitMessage();
+		});
+		$('#message').keyup(function(e) {
+			if (e.keyCode == 13) {
+				submitMessage();
+			}
+		});
+		$('#submitform').click(function(e) {
+			e.preventDefault();
+			submitMessage();
+		});
+
+		$('textarea').keyup(function(e) {
+			console.log("key: ", e.keyCode, " ");
+		})
+
+	});
+</script>
+<style>
+	body {
+		background-color: black;
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		margin: 0;
+	}
+
+	.hidden {display: none;}
+	textarea {resize: none;}
+
+	div#display {
+		font-size: 2.5em;
+		font-weight: bold;	
+		color: #51ff0d;
+		border: 3px ridge white;
+		padding: .5em;
+		max-height: 100px;
+		overflow-y: auto;
+		margin: 0;
+	}
+
+		div#display p {
+			margin: 0;
+		}
+
+	form {
+		border: 1px solid white;
+		position: absolute;
+		width: 100%;
+		top: 0;
+		left: 0;
+	}
+
+	.input {
+		width: 100%;
+		background-color: black;
+		/*border: none;*/
+		color: #51ff0d;
+		font-size: 2em;
+		/*height: 3em;*/
+		padding: .5em;
+		overflow-x: hidden;
+	}
+		.input:focus {
+			color: blue;
+			background-color: white;
+		}
+
+
+
+	.testConsole {
+		position: absolute;
+		top: 300px;
+	}
+</style>
+</head>
+<body>
+	<div id="display">
+		<p id="shownMessage">Hi. How are you doing?</p>
+	</div>
+	<form action="#" method="POST" class="hidden">
+	<!-- <form action="#" method="POST"> -->
+		<!-- <input type="text" placeholder="type here" class="input" id="message"> -->
+		<textarea class="input" id="message" placeholder="type here"></textarea>
+		<button type="submit" id="submitform" class="hidden">Enter text</button>
+	</form>
+	<div class="testConsole">
+		<button type="button" id="showform">Show Form</button>
+		<button type="button" id="hideform">Hide Form</button>
+	</div>
+</body>
+</html>
