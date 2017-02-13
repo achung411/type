@@ -6,6 +6,12 @@
 	<script type="text/javascript" src="./js/jquery-2.1.4.js"></script>
 <script>
 	// functions
+	var setScreenDimensions = function() {
+		var windowHeight = window.innerHeight;
+		var windowWidth = window.innerWidth;
+		console.log("Current window dimensions: ", windowHeight, "x", windowWidth);
+		$('body').css('height', windowHeight);
+	};
 	var getMessage = function() {
 		// var message = $('#message').val();
 		// console.log('Getting message: ', message);
@@ -30,6 +36,9 @@
 		var msg = 'default message';
 
 		// event listeners
+		window.addEventListener('resize', function() {
+			setScreenDimensions();
+		}, true);
 		$('#showform').click(function() {
 			showForm();
 		});
@@ -38,27 +47,18 @@
 		});
 		$('div#display').click(function() {
 			showForm();
-			$('#message').focus();
+			$('#message').select();
 		});
 		$('#message').blur(function() {
 			var messageText = getMessage();
 			submitMessage(messageText);
 		});
-		// $('#message').keyup(function(e) {
-		// 	if (e.keyCode == 13) {
-		// 		submitMessage();
-		// 	}
-		// });
 		$('#submitform').click(function(e) {
 			e.preventDefault();
 			submitMessage();
 		});
 
-		// $('textarea').keyup(function(e) {
-		// 	console.log("key: ", e.keyCode, " ");
-		// });
-
-		// code to run on load
+		setScreenDimensions();
 		submitMessage(msg);
 	});
 </script>
@@ -69,18 +69,21 @@
 		margin: 0;
 	}
 
+	.indicate {border: 1px dotted red;}
 	.hidden {display: none;}
 	textarea {resize: none;}
 
 	div#display {
 		font-size: 2.5em;
-		font-weight: bold;	
-		color: #51ff0d;
+		font-weight: bold;
+		color: rgba(255,255,255,1);
+		text-shadow: 0 0 .5em rgba(255,255,255,1), 0 0 .5em #00ffff;
 		border: 3px ridge white;
-		padding: .5em;
-		max-height: 100px;
-		overflow-y: auto;
-		margin: 0;
+		padding: .5em 0;
+		/*width: 80%;*/
+		height: 600px;
+		overflow: auto;
+		margin: 0 10%;
 	}
 
 		div#display p {
@@ -89,45 +92,48 @@
 		}
 
 	form {
-		border: 1px solid white;
+		/*border: 1px solid white;*/
+		border: none;
 		position: absolute;
-		width: 100%;
+		width: 80%;
+		margin: 0 10%;
 		top: 0;
 		left: 0;
 	}
 
 	.input {
 		width: 100%;
+		display: block;
+		border: none;
 		background-color: black;
-		/*border: none;*/
 		color: #51ff0d;
 		font-size: 2em;
-		/*height: 3em;*/
-		padding: .5em;
-		overflow-x: hidden;
+		height: 3em;
+		/*padding: .5em;*/
+		overflow: hidden;
 	}
 		.input:focus {
 			color: blue;
 			background-color: white;
 		}
 
-
-
 	.testConsole {
 		position: absolute;
 		top: 300px;
 	}
+
 </style>
 </head>
 <body>
 	<div id="display">
 		<p id="shownMessage"><!-- Hi. How are you doing? --></p>
 	</div>
+
 	<form action="#" method="POST" class="hidden">
 	<!-- <form action="#" method="POST"> -->
 		<!-- <input type="text" placeholder="type here" class="input" id="message"> -->
 		<textarea class="input" id="message" placeholder="type here"></textarea>
-		<button type="submit" id="submitform" class="hidden">Enter text</button>
+		<!-- <button type="button" id="submitform" class="submit">Enter text</button> -->
 	</form>
 	<div class="testConsole">
 		<button type="button" id="showform">Show Form</button>
