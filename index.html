@@ -5,12 +5,11 @@
 	<title>Type</title>
 	<script type="text/javascript" src="./js/jquery-2.1.4.js"></script>
 <script>
-	// functions
 	var setScreenDimensions = function() {
-		var windowHeight = window.innerHeight;
-		var windowWidth = window.innerWidth;
+		var windowHeight = window.outerHeight;
+		var windowWidth = window.outerWidth;
 		console.log("Current window dimensions: ", windowHeight, "x", windowWidth);
-		$('body').css('height', windowHeight);
+		$('div#display').css('height', windowHeight);
 	};
 	var getMessage = function() {
 		// var message = $('#message').val();
@@ -35,7 +34,6 @@
 	$(document).ready(function() {
 		var msg = 'default message';
 
-		// event listeners
 		window.addEventListener('resize', function() {
 			setScreenDimensions();
 		}, true);
@@ -78,10 +76,9 @@
 		font-weight: bold;
 		color: rgba(255,255,255,1);
 		text-shadow: 0 0 .5em rgba(255,255,255,1), 0 0 .5em #00ffff;
-		border: 3px ridge white;
+		/*border: 3px ridge white;*/
 		padding: .5em 0;
-		/*width: 80%;*/
-		height: 600px;
+		min-height: 100px;
 		overflow: auto;
 		margin: 0 10%;
 	}
@@ -108,8 +105,9 @@
 		background-color: black;
 		color: #51ff0d;
 		font-size: 2em;
-		height: 3em;
+		height: 5em;
 		/*padding: .5em;*/
+		margin: 1em 0;
 		overflow: hidden;
 	}
 		.input:focus {
@@ -126,18 +124,11 @@
 </head>
 <body>
 	<div id="display">
-		<p id="shownMessage"><!-- Hi. How are you doing? --></p>
+		<p id="shownMessage"></p>
 	</div>
 
 	<form action="#" method="POST" class="hidden">
-	<!-- <form action="#" method="POST"> -->
-		<!-- <input type="text" placeholder="type here" class="input" id="message"> -->
 		<textarea class="input" id="message" placeholder="type here"></textarea>
-		<!-- <button type="button" id="submitform" class="submit">Enter text</button> -->
 	</form>
-	<div class="testConsole">
-		<button type="button" id="showform">Show Form</button>
-		<button type="button" id="hideform">Hide Form</button>
-	</div>
 </body>
 </html>
